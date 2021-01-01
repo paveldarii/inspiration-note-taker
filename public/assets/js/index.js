@@ -1,6 +1,6 @@
 const $noteTitle = $(".note-title");
 const $noteText = $(".note-textarea");
-const $saveNoteBtn = $(".save-note");
+const $saveNoteBtn = $("#save-note");
 const $newNoteBtn = $(".new-note");
 const $noteList = $(".list-container .list-group");
 
@@ -10,15 +10,16 @@ let activeNote = {};
 // A function for getting all notes from the db
 const getNotes = () => {
   return $.ajax({
-    url: "/api/notes",
+    url: "api/notes",
     method: "GET",
   });
 };
+getNotes().then((response) => console.log(response));
 
 // A function for saving a note to the db
 const saveNote = (note) => {
   return $.ajax({
-    url: "/api/notes",
+    url: "api/notes",
     data: note,
     method: "POST",
   });
@@ -73,7 +74,7 @@ const handleNoteDelete = function (event) {
     activeNote = {};
   }
 
-  deleteNote(note.id).then(() => {
+  deleteNote(note.id).then((response) => {
     getAndRenderNotes();
     renderActiveNote();
   });
@@ -111,6 +112,7 @@ const renderNoteList = (notes) => {
   // unless withDeleteButton argument is provided as false
   const create$li = (text, withDeleteButton = true) => {
     const $li = $("<li class='list-group-item'>");
+    console.log($li);
     const $span = $("<span>").text(text);
     $li.append($span);
 
