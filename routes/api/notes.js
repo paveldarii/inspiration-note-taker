@@ -23,7 +23,6 @@ router.post("/", (req, res) => {
     id: uuid.v4(),
     title: req.body.title,
     text: req.body.text,
-    status: "active",
   };
   if (!newNote.title || !newNote.text) {
     return res.status(400).json({ msg: "Please include title or text" });
@@ -53,9 +52,6 @@ router.put("/:id", (req, res) => {
   } else {
     res.status(400).json({ msg: `no note with the id of ${req.params.id}` });
   }
-  let data = JSON.stringify(notes);
-  fs.writeFileSync("db/db.json", data);
-  res.json(notes);
 });
 
 //Delete note
@@ -69,12 +65,11 @@ router.delete("/:id", (req, res) => {
       notes: notes.filter((note) => note.id !== req.params.id),
     });
     remainedNotes = notes.filter((note) => note.id !== req.params.id);
+    remainedNotes = JSON.stringify(remainedNotes);
+    fs.writeFileSync("db/db.json", remainedNotes);
   } else {
     res.status(400).json({ msg: `no note with the id of ${req.params.id}` });
   }
-  remainedNotes = JSON.stringify(remainedNotes);
-  fs.writeFileSync("db/db.json", remainedNotes);
-  res.json(remainedNotes);
 });
 
 module.exports = router;
