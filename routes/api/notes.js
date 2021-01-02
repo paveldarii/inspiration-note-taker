@@ -35,25 +35,6 @@ router.post("/", (req, res) => {
   res.json(notes);
 });
 
-//update note
-
-router.put("/:id", (req, res) => {
-  // check to see if the note exists
-  const found = notes.some((note) => note.id === req.params.id);
-  if (found) {
-    const updNote = req.body;
-    notes.forEach((note) => {
-      if (note.id === req.params.id) {
-        note.title = updNote.title ? updNote.title : note.title;
-        note.text = updNote.text ? updNote.text : note.text;
-        res.json({ msg: "note updated", note }, { notes });
-      }
-    });
-  } else {
-    res.status(400).json({ msg: `no note with the id of ${req.params.id}` });
-  }
-});
-
 //Delete note
 
 router.delete("/:id", (req, res) => {
