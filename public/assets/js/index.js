@@ -75,7 +75,7 @@ const handleNoteDelete = function (event) {
   }
 
   deleteNote(note.id).then((response) => {
-    getAndRenderNotes();
+    renderNoteList(response.notes);
     renderActiveNote();
   });
 };
@@ -112,7 +112,7 @@ const renderNoteList = (notes) => {
   // unless withDeleteButton argument is provided as false
   const create$li = (text, withDeleteButton = true) => {
     const $li = $("<li class='list-group-item'>");
-    console.log($li);
+
     const $span = $("<span>").text(text);
     $li.append($span);
 
@@ -133,7 +133,6 @@ const renderNoteList = (notes) => {
     const $li = create$li(note.title).data(note);
     noteListItems.push($li);
   });
-
   $noteList.append(noteListItems);
 };
 
