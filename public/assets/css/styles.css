@@ -1,3 +1,4 @@
+@import "https://fonts.googleapis.com/css?family=Lato:100";
 html,
 body {
   height: 100%;
@@ -6,6 +7,11 @@ body {
 }
 .save-note {
   display: none;
+}
+div .jumbotron,
+body {
+  width: 100%;
+  background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
 }
 
 .icons i {
@@ -21,6 +27,8 @@ body {
   width: 100%;
   outline: none;
   border: none;
+  background: rgba(255, 255, 255, 0.5);
+  padding-left: 10px;
 }
 
 .note-textarea {
@@ -30,9 +38,12 @@ body {
 }
 
 .note-title {
+  padding: 10px;
   height: 50px;
-  margin-top: 13px;
+  margin-top: 15px;
   font-size: 3rem;
+  padding-left: 10px;
+  padding-top: 5px;
 }
 
 .note-title:read-only,
@@ -41,8 +52,11 @@ body {
 }
 
 .list-container .card {
-  height: calc(100vh - 70px);
-  border-bottom: none;
+  background: rgba(255, 255, 255, 0.5);
+  margin-top: 15px;
+  margin-left: 15px;
+
+  height: calc(100vh - 100px);
   border-bottom-right-radius: 0;
   border-bottom-left-radius: 0;
 }
@@ -50,7 +64,9 @@ body {
 .list-container {
   padding-left: 0;
 }
-
+.list-group-item {
+  background: rgba(255, 255, 255, 0.5);
+}
 .list-container .list-group,
 .list-container .list-group-item:first-child,
 .list-container .card {
@@ -69,4 +85,12 @@ body {
   border-right: none;
   padding: 20px;
   cursor: pointer;
+}
+
+h1 {
+  color: white;
+  font-weight: 1100;
+}
+nav {
+  background: rgb(93, 188, 210, 0.5);
 }
