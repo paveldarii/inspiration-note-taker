@@ -75,6 +75,7 @@ const handleNoteDelete = function (event) {
   }
 
   deleteNote(note.id).then((response) => {
+    console.log(response);
     renderNoteList(response.notes);
     renderActiveNote();
   });
