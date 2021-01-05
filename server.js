@@ -13,6 +13,7 @@ app.get("/", (req, res) => {
 });
 //to get a static folder
 app.use(express.static(path.join(__dirname, "public")));
+app.use(express.static(path.join(__dirname, "db")));
 
 app.use("/api/notes", require("./routes/api/notes"));
 
