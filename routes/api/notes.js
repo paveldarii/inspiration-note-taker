@@ -42,21 +42,14 @@ router.post("/", (req, res) => {
 //Delete note
 
 router.delete("/:id", (req, res) => {
-  const found = notes.some((note) => note.id === req.params.id);
-  let remainedNotes;
-  if (found) {
-    remainedNotesJson = notes.filter((note) => note.id !== req.params.id);
-    remainedNotes = JSON.stringify(remainedNotesJson);
-    fs.writeFile("db/db.json", remainedNotes, (err) => {
-      if (err) {
-        console.log(err);
-        return;
-      }
-      res.json({
-        msg: "Note deleted successfully",
-        notes: remainedNotesJson,
-      });
+  const found = notes.findIndex((note) => note.id === req.params.id);
+  if (found >= 0) {
+    notes.splice(found, 1);
+    res.json({
+      msg: "Note deleted successfully",
+      notes,
     });
+    fs.writeFileSync("db/db.json", JSON.stringify(notes));
   } else {
     res.status(400).json({ msg: `no note with the id of ${req.params.id}` });
   }
