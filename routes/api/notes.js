@@ -45,8 +45,8 @@ router.delete("/:id", (req, res) => {
   const found = notes.some((note) => note.id === req.params.id);
   let remainedNotes;
   if (found) {
-    remainedNotes = notes.filter((note) => note.id !== req.params.id);
-    remainedNotes = JSON.stringify(remainedNotes);
+    remainedNotesJson = notes.filter((note) => note.id !== req.params.id);
+    remainedNotes = JSON.stringify(remainedNotesJson);
     fs.writeFile("db/db.json", remainedNotes, (err) => {
       if (err) {
         console.log(err);
@@ -54,7 +54,7 @@ router.delete("/:id", (req, res) => {
       }
       res.json({
         msg: "Note deleted successfully",
-        notes: notes.filter((note) => note.id !== req.params.id),
+        notes: remainedNotesJson,
       });
     });
   } else {
