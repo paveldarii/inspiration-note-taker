@@ -30,8 +30,13 @@ router.post("/", (req, res) => {
   notes.push(newNote);
 
   let data = JSON.stringify(notes);
-  fs.writeFileSync("db/db.json", data);
-  res.json(notes);
+  fs.writeFile("db/db.json", data, (err) => {
+    if (err) {
+      console.log(err);
+      return;
+    }
+    res.json(notes);
+  });
 });
 
 //Delete note
@@ -42,10 +47,15 @@ router.delete("/:id", (req, res) => {
   if (found) {
     remainedNotes = notes.filter((note) => note.id !== req.params.id);
     remainedNotes = JSON.stringify(remainedNotes);
-    fs.writeFileSync("db/db.json", remainedNotes);
-    res.json({
-      msg: "Note deleted successfully",
-      notes: notes.filter((note) => note.id !== req.params.id),
+    fs.writeFile("db/db.json", remainedNotes, (err) => {
+      if (err) {
+        console.log(err);
+        return;
+      }
+      res.json({
+        msg: "Note deleted successfully",
+        notes: notes.filter((note) => note.id !== req.params.id),
+      });
     });
   } else {
     res.status(400).json({ msg: `no note with the id of ${req.params.id}` });
